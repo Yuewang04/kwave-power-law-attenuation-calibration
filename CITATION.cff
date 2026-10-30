@@ -24,6 +24,7 @@ repository-code: "https://github.com/Yuewang04/kwave-power-law-attenuation-calib
 url: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
 license: MIT
 version: "1.0.0"
+doi: "10.5281/zenodo.23804834"
 date-released: "2026-10-30"
 keywords:
   - k-Wave

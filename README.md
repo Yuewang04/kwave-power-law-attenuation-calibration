@@ -6,7 +6,7 @@
 
 > **Key idea:** Correctly converting a literature attenuation coefficient to k-Wave's power-law parameterization does not by itself guarantee correct numerical attenuation. This project separates those two questions and audits both under a controlled 1-D setup.
 
-![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e86e05) ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab) [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE)
+![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e86e05) ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab) [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23804833.svg)](https://doi.org/10.5281/zenodo.23804833)
 
 ## Contents
 
@@ -308,7 +308,11 @@ Yue Wang ([Yuewang04](https://github.com/Yuewang04))
 
 ## Citation
 
-Machine-readable metadata is provided in [`CITATION.cff`](CITATION.cff). A DOI via Zenodo will be added here once available.
+Machine-readable metadata is provided in [`CITATION.cff`](CITATION.cff).
+
+Wang, Y. *kwave-power-law-attenuation-calibration* (v1.0.0). Zenodo, 2026. [doi:10.5281/zenodo.23804834](https://doi.org/10.5281/zenodo.23804834)
+
+The concept DOI [10.5281/zenodo.23804833](https://doi.org/10.5281/zenodo.23804833) resolves to the latest version.
 
 ## References
 

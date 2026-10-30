@@ -6,7 +6,7 @@
 
 > **核心观点：** 把文献衰减系数正确换算到 k-Wave 的幂律参数，并不等于数值求解器一定会给出正确的衰减。本项目在受控的一维设置下，把这两个问题分开审计。
 
-![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e86e05) ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab) [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE)
+![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e86e05) ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab) [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23804833.svg)](https://doi.org/10.5281/zenodo.23804833)
 
 ## 目录
 
@@ -300,7 +300,11 @@ Yue Wang（[Yuewang04](https://github.com/Yuewang04)）
 
 ## 引用
 
-机器可读的引用元数据见 [`CITATION.cff`](CITATION.cff)。Zenodo DOI 将在获得后补充到这里。
+机器可读的引用元数据见 [`CITATION.cff`](CITATION.cff)。
+
+Wang, Y. *kwave-power-law-attenuation-calibration* (v1.0.0). Zenodo, 2026. [doi:10.5281/zenodo.23804834](https://doi.org/10.5281/zenodo.23804834)
+
+概念 DOI [10.5281/zenodo.23804833](https://doi.org/10.5281/zenodo.23804833) 始终指向最新版本。
 
 ## 参考文献
 
