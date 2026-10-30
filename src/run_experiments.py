@@ -32,18 +32,24 @@ def plot_primary_results(data):
     target = data["constants"]["target_dB_cm_at_f0"]
     values = [calibration["uncorrected"]["attenuation_dB_cm"], calibration["corrected"]["attenuation_dB_cm"], target]
     errors = [calibration["uncorrected"]["relative_error_percent"], calibration["corrected"]["relative_error_percent"], 0]
-    fig, ax = plt.subplots(figsize=(7, 4.5))
+    # Bars sit close together and are drawn narrow: the group is compressed on
+    # x so the gaps stay small without fattening the bars themselves.
+    positions = [0.0, 0.54, 1.08]
+    fig, ax = plt.subplots(figsize=(7, 5.2))
     bars = ax.bar(
-        ["uncorrected", "corrected", "target"],
+        positions,
         values,
-        width=0.52,
-        color=["#c0504d", "#377eb8", "#9aa0a6"],
+        width=0.42,
+        color=["#c98b8b", "#7fa8c9", "#d5d0cb"],
         edgecolor="white",
-        linewidth=1.2,
+        linewidth=1.0,
     )
+    ax.set_xticks(positions)
+    ax.set_xticklabels(["uncorrected", "corrected", "target"])
+    ax.set_xlim(-0.38, 1.50)
     ax.set_ylabel("Attenuation (dB/cm)")
     ax.set_title("Calibration at 0.5 MHz")
-    ax.set_ylim(0, max(values) * 1.28)
+    ax.set_ylim(0, max(values) * 1.18)
     ax.set_axisbelow(True)
     ax.grid(axis="y", alpha=0.25)
     for bar, value, error in zip(bars, values, errors):
@@ -164,9 +170,19 @@ def plot_optional_results():
         ax.axvline(0.5, color="#555", ls=":", lw=1)
         error_at_f0 = next(row["relative_error_percent"] for row in sweep if row["frequency_MHz"] == 0.5)
         ax.scatter([0.5], [target], color="crimson", zorder=3)
-        ax.annotate(f"f0: {error_at_f0:+.2f}%", (0.5, target), xytext=(8, 10), textcoords="offset points")
-        ax.annotate(f"{sweep[0]['relative_error_percent']:+.1f}%", (frequencies[0], simulated[0]), xytext=(5, 8), textcoords="offset points")
-        ax.annotate(f"{sweep[-1]['relative_error_percent']:+.1f}%", (frequencies[-1], simulated[-1]), xytext=(-38, 8), textcoords="offset points")
+        # Labels go into the empty space beside each point rather than on top of
+        # it: the two curves converge at f0, so any label placed at the point
+        # itself collides with a line.
+        ax.set_ylim(min(simulated) * 0.72, max(max(simulated), lit_coeff * frequencies[-1]) * 1.12)
+        ax.set_xlim(frequencies[0] - 0.05, frequencies[-1] + 0.04)
+        ax.annotate(f"f0: {error_at_f0:+.2f}%", (0.5, target), xytext=(11, -15),
+                    textcoords="offset points", ha="left", va="top")
+        ax.annotate(f"{sweep[0]['relative_error_percent']:+.1f}%",
+                    (frequencies[0], simulated[0]), xytext=(12, 0),
+                    textcoords="offset points", ha="left", va="center")
+        ax.annotate(f"{sweep[-1]['relative_error_percent']:+.1f}%",
+                    (frequencies[-1], simulated[-1]), xytext=(-3, 9),
+                    textcoords="offset points", ha="right", va="bottom")
         ax.set_xlabel("Frequency (MHz)")
         ax.set_ylabel("Attenuation (dB/cm)")
         ax.set_title("y=1.1 no_dispersion: matched at f0, not across the full band")
