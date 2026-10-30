@@ -37,9 +37,9 @@ elseif ~isempty(mode_override)
 end
 source_idx=8*grid_factor; pml_size=20*grid_factor;
 % NOTE: with pml_size=20 the source at index 8 sits *inside* the internal PML.
-% This is not standard k-Wave practice and is disclosed in the README Limitations.
-% Moving the source into the physical interior is a required follow-up before these
-% numbers are used for anything quantitative.
+% This is not standard k-Wave practice. Moving the source into the physical
+% interior is a required follow-up before these numbers are used for anything
+% quantitative.
 source.p_mask=zeros(Nx,1); source.p_mask(source_idx)=1; source.p=toneBurst(1/kgrid.dt,f,18,'SignalOffset',0);
 sensor.mask=false(Nx,1); idx=(60:40:280)'*grid_factor; sensor.mask(idx)=true; sensor.record={'p_max'};
 data=kspaceFirstOrder1D(kgrid,medium,source,sensor,'PMLSize',pml_size,'PlotSim',false,'DataCast','double','Smooth',false);

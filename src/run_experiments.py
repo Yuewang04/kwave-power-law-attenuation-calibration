@@ -66,7 +66,10 @@ def plot_primary_results(data):
     ax.plot(frequencies, [row["attenuation_dB_cm"] for row in sweep], "o-", label="alpha_power=2 corrected")
     ax.scatter([0.5], [target], color="crimson")
     corrected_error = calibration["corrected"]["relative_error_percent"]
-    ax.annotate(f"f0: {corrected_error:+.2f}%", (0.5, target), xytext=(8, 10), textcoords="offset points")
+    # Below and to the right of f0: both curves pass above that region, so the
+    # label does not sit on the dashed target line.
+    ax.annotate(f"f0: {corrected_error:+.2f}%", (0.5, target), xytext=(10, -17),
+                textcoords="offset points", ha="left", va="top")
     ax.set_xlabel("Frequency (MHz)")
     ax.set_ylabel("Attenuation (dB/cm)")
     ax.set_title("Attenuation vs Frequency: corrected y=2 matches target at f0")
@@ -116,7 +119,9 @@ def plot_exponent_results(all_results, exponents):
     ax.plot(x_curve, [100 * ((1 / 0.5) ** (x - 1) - 1) for x in x_curve], "k--", label="theoretical")
     ax.plot(systematic, [errors_at_1mhz[e] for e in systematic], "o-", color="#377eb8", lw=2, label="systematic scan")
     ax.plot(diagnostic, [errors_at_1mhz[e] for e in diagnostic], "D", color="#e66101", ms=7, label="near-y=1 diagnostic")
-    ax.set_xlim(0.5, 2.5)
+    # Margins instead of a hard 0.5-2.5 window: the y=2.5 marker sat half under
+    # the right spine when the limits were pinned to the sampled range.
+    ax.margins(x=0.035, y=0.07)
     ax.set_xlabel("Power-law exponent y")
     ax.set_ylabel("Relative error at 1.0 MHz (%)")
     ax.set_title("Exponent summary at 1.0 MHz")
@@ -135,9 +140,9 @@ def plot_optional_results():
         y_values = [row["relative_error_percent"] for row in scan]
         fig, ax = plt.subplots(figsize=(7.5, 4.8))
         ax.axhspan(-5, 5, color="#d9ead3", alpha=0.55, label="within ±5%")
-        # Draw two segments and deliberately leave a gap at y=1: default dispersion
-        # has no valid sample there, so a line across it would imply interpolation
-        # over the singularity. This matches the convention used in Figure S1.
+        # Two segments with a gap at y=1: default dispersion has no valid sample
+        # there, and joining across it would imply interpolation over the
+        # singularity.
         left = [(x, e) for x, e in zip(x_values, y_values) if x < 1]
         right = [(x, e) for x, e in zip(x_values, y_values) if x > 1]
         for segment, label in ((left, "k-Wave dispersive mode"), (right, None)):
@@ -222,11 +227,10 @@ def main(plot_only=False):
             all_results.append(result)
             output.unlink()
         except subprocess.CalledProcessError:
-            # Do not assert a cause here. Earlier versions of this driver recorded a guessed
-            # reason ("valid range is 0<n<3"), which is misleading: alpha_power=3 is an odd
-            # integer, and tan(pi*y/2) is singular at every odd integer, so y=3 belongs to the
-            # same singularity class as y=1. The real rejection message is not captured by this
-            # batch driver; run the MATLAB call by hand to see it.
+            # The exact rejection message is not captured by this batch driver.
+            # alpha_power=3 is an odd integer and tan(pi*y/2) is singular at every
+            # odd integer, so y=3 shares the y=1 singularity class. Run the MATLAB
+            # call by hand to see the message k-Wave actually returns.
             all_results.append({"n": exponent, "status": "unsupported_by_kwave",
                 "reason": "MATLAB/k-Wave rejected this alpha_power; the exact message is not captured by the batch driver. Note tan(pi*y/2) is singular at every odd integer, so y=3 shares the y=1 singularity class."})
     (RES / "results_n_sweep.json").write_text(json.dumps(all_results, indent=2))
