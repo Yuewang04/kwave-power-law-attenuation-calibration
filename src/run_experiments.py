@@ -33,10 +33,18 @@ def plot_primary_results(data):
     values = [calibration["uncorrected"]["attenuation_dB_cm"], calibration["corrected"]["attenuation_dB_cm"], target]
     errors = [calibration["uncorrected"]["relative_error_percent"], calibration["corrected"]["relative_error_percent"], 0]
     fig, ax = plt.subplots(figsize=(7, 4.5))
-    bars = ax.bar(["uncorrected", "corrected", "target"], values, color=["#d95f02", "#1b9e77", "#7570b3"])
+    bars = ax.bar(
+        ["uncorrected", "corrected", "target"],
+        values,
+        width=0.52,
+        color=["#c0504d", "#377eb8", "#9aa0a6"],
+        edgecolor="white",
+        linewidth=1.2,
+    )
     ax.set_ylabel("Attenuation (dB/cm)")
     ax.set_title("Calibration at 0.5 MHz")
     ax.set_ylim(0, max(values) * 1.28)
+    ax.set_axisbelow(True)
     ax.grid(axis="y", alpha=0.25)
     for bar, value, error in zip(bars, values, errors):
         ax.text(bar.get_x() + bar.get_width() / 2, value, f"{value:.4f}\n({error:+.1f}%)", ha="center", va="bottom")
