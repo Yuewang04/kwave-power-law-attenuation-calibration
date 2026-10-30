@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+Thumbs.db
+*.log
+build/
+build*/
+tmp/
+temp/
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*.toc
+*.synctex.gz
+*.mat
+*.pem
+*.key
+.env
+
+# The report source is published, so report.pdf can be rebuilt from
+# report.tex plus figures/. Only the build artifacts above are ignored.

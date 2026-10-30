@@ -1,0 +1,30 @@
+{
+  "y": 1.05,
+  "note": "Expected value is alpha_coeff*f0^y; all values are measured MATLAB k-Wave outputs.",
+  "cases": [
+    {
+      "coeff_scale": 0.5,
+      "alpha_coeff": 0.966673446312267,
+      "measured_dB_cm": 0.4067546572637671,
+      "expected_dB_cm": 0.45096910872596496,
+      "relative_error_vs_powerlaw_percent": -9.804319321806396,
+      "fit_R2": 0.9999967984002582
+    },
+    {
+      "coeff_scale": 1,
+      "alpha_coeff": 1.933346892624534,
+      "measured_dB_cm": 0.7271584338888049,
+      "expected_dB_cm": 0.9019382174519299,
+      "relative_error_vs_powerlaw_percent": -19.37824345185153,
+      "fit_R2": 0.9999924472408759
+    },
+    {
+      "coeff_scale": 2,
+      "alpha_coeff": 3.866693785249068,
+      "measured_dB_cm": 1.189453248862212,
+      "expected_dB_cm": 1.8038764349038598,
+      "relative_error_vs_powerlaw_percent": -34.06126795344463,
+      "fit_R2": 0.9999959706743061
+    }
+  ]
+}

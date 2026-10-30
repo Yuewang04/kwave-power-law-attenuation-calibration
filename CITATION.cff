@@ -1,0 +1,63 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it using the metadata below."
+type: software
+title: "kwave-power-law-attenuation-calibration"
+abstract: >-
+  Reproducible numerical audit of two separate questions in k-Wave: whether a
+  literature attenuation coefficient reported for a linear frequency law (y=1)
+  is correctly transferred to k-Wave's power-law parameterization at the
+  intended operating frequency, and whether the solver then delivers the
+  numerical attenuation implied by that transfer. Under a controlled
+  homogeneous 1-D setup, matching the coefficient at 0.5 MHz changes the y=2
+  calibration error from -50.13% to -0.97%. Near y=1 the failure is not a
+  power-law mismatch: at y=1.01 the attenuation deficit is -56.8% to -59.4%
+  across 0.2-1.0 MHz with R^2 >= 0.999, i.e. nearly frequency-independent, and
+  an independent 3-D control shows a matching +57% excess in peak pressure.
+  At y=0.99 the 1-D peak-pressure estimate collapses into numerical residue
+  while the 3-D field diverges to order 1e30 Pa.
+authors:
+  - family-names: Wang
+    given-names: Yue
+    alias: Yuewang04
+    website: "https://github.com/Yuewang04"
+repository-code: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
+url: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
+license: MIT
+version: "1.0.0"
+date-released: "2026-10-21"
+keywords:
+  - k-Wave
+  - transcranial ultrasound
+  - focused ultrasound
+  - acoustic attenuation
+  - power-law absorption
+  - frequency-dependent attenuation
+  - reproducibility
+  - numerical simulation
+references:
+  - type: article
+    title: "Benchmark problems for transcranial ultrasound simulation: Intercomparison of compressional wave models"
+    authors:
+      - family-names: Aubry
+        given-names: Jean-Francois
+    journal: "The Journal of the Acoustical Society of America"
+    volume: 152
+    issue: 2
+    start: 1003
+    end: 1019
+    year: 2022
+    doi: "10.1121/10.0013426"
+  - type: article
+    title: "Modeling power law absorption and dispersion for acoustic propagation using the fractional Laplacian"
+    authors:
+      - family-names: Treeby
+        given-names: Bradley E.
+      - family-names: Cox
+        given-names: Benjamin T.
+    journal: "The Journal of the Acoustical Society of America"
+    volume: 127
+    issue: 5
+    start: 2741
+    end: 2748
+    year: 2010
+    doi: "10.1121/1.3377056"

@@ -1,0 +1,29 @@
+{
+  "y": 1.05,
+  "cases": [
+    {
+      "grid_factor": 1,
+      "Nx": 512,
+      "dx_mm": 0.5,
+      "measured_dB_cm": 0.7271584338888049,
+      "relative_error_percent": -22.124516448408837,
+      "fit_R2": 0.9999924472408759
+    },
+    {
+      "grid_factor": 2,
+      "Nx": 1024,
+      "dx_mm": 0.25,
+      "measured_dB_cm": 0.7296740237876567,
+      "relative_error_percent": -21.855107787708988,
+      "fit_R2": 0.9999978641644308
+    },
+    {
+      "grid_factor": 4,
+      "Nx": 2048,
+      "dx_mm": 0.125,
+      "measured_dB_cm": 0.7309219774039891,
+      "relative_error_percent": -21.721457421031527,
+      "fit_R2": 0.9999953121656787
+    }
+  ]
+}

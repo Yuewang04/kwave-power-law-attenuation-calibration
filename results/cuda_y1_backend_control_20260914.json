@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-14T14:56:32Z",
+  "purpose": "Test exact y=1 and proposed y=0.99/1.01 CUDA workarounds without production data.",
+  "scope": "Small homogeneous 3-D backend control plus the repository's existing homogeneous 1-D attenuation estimator.",
+  "environment": {
+    "os": "Ubuntu 24.04.4 LTS",
+    "matlab": "R2026a Update 4",
+    "kwave_matlab_toolbox": "1.4.1",
+    "cuda_binary": "kspaceFirstOrder-CUDA v1.3, build 3.6",
+    "gpu": "NVIDIA GeForce RTX 4090 D"
+  },
+  "three_dimensional_control": {
+    "grid_size_xyz": [48, 20, 20],
+    "spacing_m": 0.0005,
+    "pml_xyz": [6, 6, 6],
+    "source_frequency_hz": 500000,
+    "source_pressure_pa": 1000000,
+    "sound_speed_m_s": 2800,
+    "density_kg_m3": 1900,
+    "baseline_cfl": 0.1,
+    "cases": [
+      {
+        "y": 0.99,
+        "tan_pi_y_over_2": 63.6567411628717,
+        "matlab_default_peak_pa": 4.960372242449001e30,
+        "matlab_no_dispersion_peak_pa": 1746178.75,
+        "cuda_default_peak_pa": 1.0930034339290569e30,
+        "cuda_no_dispersion_peak_pa": 1.0930034339290569e30,
+        "cuda_modes_bitwise_equal": true,
+        "serialized_dataset_count_per_mode": 45,
+        "serialized_dataset_payloads_equal": true,
+        "interpretation": "Default-dispersion field blew up; values were finite but nonphysical."
+      },
+      {
+        "y": 1.0,
+        "tan_pi_y_over_2": 1.633123935319537e16,
+        "matlab_default_status": "rejected by MATLAB solver special-case validation",
+        "matlab_no_dispersion_status": "completed",
+        "matlab_no_dispersion_peak_pa": 1746160.625,
+        "cuda_default_status": "rejected by MATLAB-side special-case validation",
+        "cuda_no_dispersion_status": "CUDA binary rejected alpha_power=1 and produced no output field",
+        "cuda_binary_message": "Illegal value of alpha_power (may not equal to 1.0)."
+      },
+      {
+        "y": 1.01,
+        "tan_pi_y_over_2": -63.656741162872194,
+        "matlab_default_peak_pa": 2736234.5,
+        "matlab_no_dispersion_peak_pa": 1746142.25,
+        "cuda_default_peak_pa": 2736230.0,
+        "cuda_no_dispersion_peak_pa": 2736230.0,
+        "matlab_default_vs_no_dispersion_peak_change": -0.36184480898841087,
+        "matlab_default_vs_cuda_default_normalized_l2": 1.5552553359691345e-6,
+        "cuda_modes_bitwise_equal": true,
+        "serialized_dataset_count_per_mode": 45,
+        "serialized_dataset_payloads_equal": true
+      }
+    ]
+  },
+  "timestep_control_default_dispersion": [
+    {"y": 0.99, "cfl": 0.1, "dt_s": 1.7857142857142859e-8, "Nt": 1009, "matlab_peak_pa": 4.960372242449001e30, "cuda_peak_pa": 1.0930034339290569e30, "matlab_vs_cuda_normalized_l2": 0.784849065261068},
+    {"y": 0.99, "cfl": 0.05, "dt_s": 8.92857142857143e-9, "Nt": 2017, "matlab_peak_pa": 5.085882014347027e30, "cuda_peak_pa": 9.913296746270538e29, "matlab_vs_cuda_normalized_l2": 0.8100332902083819},
+    {"y": 0.99, "cfl": 0.025, "dt_s": 4.464285714285715e-9, "Nt": 4033, "matlab_peak_pa": 4.802277386240537e30, "cuda_peak_pa": 9.331538218934224e29, "matlab_vs_cuda_normalized_l2": 0.8106379059507464},
+    {"y": 1.01, "cfl": 0.1, "dt_s": 1.7857142857142859e-8, "Nt": 1009, "matlab_peak_pa": 2736234.5, "cuda_peak_pa": 2736230.0, "matlab_vs_cuda_normalized_l2": 1.5552553359691345e-6},
+    {"y": 1.01, "cfl": 0.05, "dt_s": 8.92857142857143e-9, "Nt": 2017, "matlab_peak_pa": 2736355.25, "cuda_peak_pa": 2736351.5, "matlab_vs_cuda_normalized_l2": 1.4298749716276199e-6},
+    {"y": 1.01, "cfl": 0.025, "dt_s": 4.464285714285715e-9, "Nt": 4033, "matlab_peak_pa": 2736246.75, "cuda_peak_pa": 2736243.5, "matlab_vs_cuda_normalized_l2": 1.5466943369234865e-6}
+  ],
+  "one_dimensional_peak_pressure_attenuation": [
+    {
+      "y": 0.99,
+      "alpha_coeff_matched_db_cm_mhzy": 1.8545903043037102,
+      "estimated_attenuation_db_cm_at_f0": -0.22728843561087764,
+      "relative_error_percent_at_f0": -124.34159600435626,
+      "fit_R2": 0.7447590162146112
+    },
+    {
+      "y": 1.01,
+      "alpha_coeff_matched_db_cm_mhzy": 1.8804794201754218,
+      "estimated_attenuation_db_cm_at_f0": 0.39859761470447347,
+      "relative_error_percent_at_f0": -57.31194119331579,
+      "fit_R2": 0.9999389544129433
+    }
+  ],
+  "conclusion": "Exact y=1 plus no_dispersion was not accepted by the tested CUDA binary, and neither y=0.99 nor y=1.01 is a validated GPU-safe workaround in this setup.",
+  "limitations": [
+    "This tests one MATLAB-wrapper/CUDA-binary pairing.",
+    "The 3-D control is small and homogeneous, not a skull simulation.",
+    "The 1-D quantity is a peak-pressure attenuation estimate.",
+    "The results do not define a universal safe distance from y=1."
+  ]
+}
