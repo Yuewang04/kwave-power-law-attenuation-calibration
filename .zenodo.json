@@ -1,0 +1,21 @@
+{
+  "title": "kwave-power-law-attenuation-calibration: Reproducible numerical audit of k-Wave power-law attenuation calibration and sensitivity near y=1",
+  "description": "<p><strong>kwave-power-law-attenuation-calibration</strong> provides a reproducible numerical audit of power-law acoustic attenuation in k-Wave simulations (under MATLAB and CUDA), focusing on two independent sources of error: literature parameter transfer and the numerical dispersion singularity near <em>y</em> = 1.</p><h3>Key Audit Findings</h3><ul><li><strong>Parameter Conversion Bias (<em>y</em> = 2):</strong> Directly using a literature linear attenuation coefficient (<em>y</em> = 1) in k-Wave's default quadratic model (<em>y</em> = 2) biases attenuation away from the reference frequency (by <strong>&minus;50.13%</strong> at 0.5 MHz). Applying the derived analytical matching formula eliminates this bias (reducing error to <strong>&minus;0.97%</strong>).</li><li><strong>Near-<em>y</em> = 1 Dispersion Deficit:</strong> Operating near <em>y</em> = 1 with k-Wave's default dispersion mode silently induces large attenuation errors due to the singular Kramers-Kronig dispersion relation. At <em>y</em> = 1.01, the solver exhibits a <strong>&minus;56.8% to &minus;59.4%</strong> multiplicative attenuation deficit across 0.2&ndash;1.0 MHz (<em>R</em>&sup2; &ge; 0.999), and an independent 3-D control exhibits a matching <strong>+57%</strong> excess in peak pressure. Switching to <code>no_dispersion</code> resolves this deficit.</li><li><strong>Field Divergence &amp; Collapse:</strong> Approaching <em>y</em> = 1 closer (<em>y</em> = 0.99) causes numerical failure: the 1-D peak pressure collapses into residual noise, while the 3-D field diverges to order <strong>10<sup>30</sup> Pa</strong> across both MATLAB and CUDA backends.</li></ul><h3>Repository Contents</h3><ul><li><strong>Core Experiments:</strong> Controlled 1-D k-Wave simulation scripts and 3-D backend verification controls.</li><li><strong>Reproducibility:</strong> Pre-computed raw JSON metrics for all exponent sweeps, allowing instant figure reproduction without a MATLAB license.</li><li><strong>Full Technical Report:</strong> 16-page technical report with full LaTeX source (<code>report.tex</code>) and compiled PDF.</li></ul><p>GitHub Repository: <a href=\"https://github.com/Yuewang04/kwave-power-law-attenuation-calibration\">https://github.com/Yuewang04/kwave-power-law-attenuation-calibration</a></p>",
+  "creators": [
+    {
+      "name": "Wang, Yue"
+    }
+  ],
+  "keywords": [
+    "k-Wave",
+    "transcranial ultrasound",
+    "focused ultrasound",
+    "acoustic attenuation",
+    "power-law absorption",
+    "frequency-dependent attenuation",
+    "numerical simulation",
+    "reproducibility"
+  ],
+  "license": "MIT",
+  "upload_type": "software"
+}

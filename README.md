@@ -6,7 +6,7 @@
 
 > **Key idea:** Correctly converting a literature attenuation coefficient to k-Wave's power-law parameterization does not by itself guarantee correct numerical attenuation. This project separates those two questions and audits both under a controlled 1-D setup.
 
-![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e86e05) ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab) [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23804833.svg)](https://doi.org/10.5281/zenodo.23804833)
+![MATLAB R2026a](https://img.shields.io/badge/MATLAB-R2026a-e86e05) ![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776ab) [![CI](https://github.com/Yuewang04/kwave-power-law-attenuation-calibration/actions/workflows/reproduce.yml/badge.svg)](https://github.com/Yuewang04/kwave-power-law-attenuation-calibration/actions/workflows/reproduce.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f)](LICENSE) [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.23804833-1073B1?logo=doi&logoColor=white)](https://doi.org/10.5281/zenodo.23804833)
 
 ## Contents
 
@@ -233,6 +233,15 @@ This study does not determine which attenuation exponent is physically appropria
 
 ## Reproduction
 
+> [!TIP]
+> **Instant Figure Reproduction (No MATLAB Required):**
+> To immediately inspect and regenerate all 9 figures from the pre-computed experimental results in `results/`:
+> ```bash
+> pip install -r requirements.txt
+> python src/run_experiments.py --plot-only
+> python src/plot_near_y1_frequency_scan.py
+> ```
+
 ### 1. Prerequisites
 
 Install MATLAB R2026a and k-Wave Toolbox 1.4.1. Also install Python 3.11 or later. MATLAB performs the k-Wave simulation; Python only launches MATLAB in batch mode and handles result/figure orchestration. The Python driver does not use the Python k-Wave interface or `matlab.engine`. This project was tested and validated only on MATLAB R2026a. k-Wave 1.4.1 itself may have broader MATLAB version compatibility, but this project has not verified behavior on other MATLAB versions.
@@ -309,6 +318,19 @@ Yue Wang ([Yuewang04](https://github.com/Yuewang04))
 ## Citation
 
 Machine-readable metadata is provided in [`CITATION.cff`](CITATION.cff).
+
+```bibtex
+@software{wang2026kwave,
+  author       = {Wang, Yue},
+  title        = {kwave-power-law-attenuation-calibration: Reproducible numerical audit of k-Wave power-law attenuation calibration and sensitivity near y=1},
+  month        = oct,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.23804834},
+  url          = {https://doi.org/10.5281/zenodo.23804834}
+}
+```
 
 Wang, Y. *kwave-power-law-attenuation-calibration* (v1.0.0). Zenodo, 2026. [doi:10.5281/zenodo.23804834](https://doi.org/10.5281/zenodo.23804834)
 

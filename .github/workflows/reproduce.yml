@@ -1,0 +1,49 @@
+name: Reproducibility & Figure Generation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verify analytical estimator module
+        run: |
+          python src/simulate_1d.py
+
+      - name: Reproduce primary figures (--plot-only)
+        run: |
+          python src/run_experiments.py --plot-only
+
+      - name: Reproduce near-y=1 sensitivity figures
+        run: |
+          python src/plot_near_y1_frequency_scan.py
+
+      - name: Validate generated figures exist
+        run: |
+          test -f figures/fig1_calibration_bar.png
+          test -f figures/fig2_frequency_sweep.png
+          test -f figures/fig3_error_vs_n.png
+          test -f figures/fig4_exponent_summary.png
+          test -f figures/fig5_y1_sensitivity.png
+          test -f figures/fig6_y11_frequency_scan.png
+          test -f figures/near_y1_frequency_error.png
+          test -f figures/fixed_500khz_error_vs_y.png
+          test -f figures/other_frequencies_error_vs_y.png

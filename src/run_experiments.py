@@ -206,11 +206,17 @@ def main(plot_only=False):
         plot_primary_results(json.loads((RES / "results.json").read_text()))
         plot_exponent_results(json.loads((RES / "results_n_sweep.json").read_text()), exponents)
         plot_optional_results()
+        print(f"[✓] Figures successfully regenerated from pre-computed results in {FIG}.")
         return
 
     matlab = shutil.which("matlab")
     if not matlab:
-        raise RuntimeError("MATLAB executable not found on PATH; add MATLAB to PATH before running.")
+        print("[!] MATLAB executable not found on PATH. Falling back to --plot-only mode using archived results.")
+        plot_primary_results(json.loads((RES / "results.json").read_text()))
+        plot_exponent_results(json.loads((RES / "results_n_sweep.json").read_text()), exponents)
+        plot_optional_results()
+        print(f"[✓] Figures successfully regenerated from pre-computed results in {FIG}.")
+        return
     raw = RES / "matlab_results.json"
     call(matlab, raw, 2)
     data = json.loads(raw.read_text())

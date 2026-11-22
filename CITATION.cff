@@ -3,18 +3,15 @@ message: "If you use this software or its results, please cite it using the meta
 type: software
 title: "kwave-power-law-attenuation-calibration"
 abstract: >-
-  Reproducible numerical audit of two separate questions in k-Wave: whether a
-  literature attenuation coefficient reported for a linear frequency law (y=1)
-  is correctly transferred to k-Wave's power-law parameterization at the
-  intended operating frequency, and whether the solver then delivers the
-  numerical attenuation implied by that transfer. Under a controlled
-  homogeneous 1-D setup, matching the coefficient at 0.5 MHz changes the y=2
-  calibration error from -50.13% to -0.97%. Near y=1 the failure is not a
-  power-law mismatch: at y=1.01 the attenuation deficit is -56.8% to -59.4%
-  across 0.2-1.0 MHz with R^2 >= 0.999, i.e. nearly frequency-independent, and
-  an independent 3-D control shows a matching +57% excess in peak pressure.
-  At y=0.99 the 1-D peak-pressure estimate collapses into numerical residue
-  while the 3-D field diverges to order 1e30 Pa.
+  Reproducible numerical audit of power-law acoustic attenuation in k-Wave
+  simulations (under MATLAB and CUDA), focusing on two independent sources of
+  error: literature parameter transfer and the numerical dispersion singularity
+  near y=1. Matching literature linear coefficients to k-Wave's quadratic model
+  at 0.5 MHz changes calibration error from -50.13% to -0.97%. Operating near
+  y=1 with default dispersion silently induces a -56.8% to -59.4% multiplicative
+  attenuation deficit across 0.2-1.0 MHz (R^2 >= 0.999), matching a +57% excess
+  in 3-D peak pressure. Approaching y=0.99 leads to 1-D numerical collapse and
+  3-D field divergence to order 1e30 Pa across both MATLAB and CUDA backends.
 authors:
   - family-names: Wang
     given-names: Yue
@@ -25,6 +22,13 @@ url: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
 license: MIT
 version: "1.0.0"
 doi: "10.5281/zenodo.23804834"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23804834"
+    description: "The versioned DOI for v1.0.0"
+  - type: doi
+    value: "10.5281/zenodo.23804833"
+    description: "The concept DOI representing all versions"
 date-released: "2026-10-30"
 keywords:
   - k-Wave
