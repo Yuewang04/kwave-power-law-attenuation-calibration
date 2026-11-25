@@ -1,31 +1,29 @@
-# Near-y=1 frequency-scan experiment
+# Near-y=1 Experiment Protocol & Completed Controls
 
 ## Objective
 
-Test whether the large attenuation-estimation error observed at 500 kHz is a frequency-local effect or a systematic near-y=1 behavior.
+Diagnose why k-Wave's default dispersive mode produces large attenuation errors and field instabilities near $y=1$, and reconcile 1-D and 3-D behavior using exact fractional-Laplacian PDE theory.
 
-## Completed matrix
+## Completed Standard Setup (v1.1.0)
 
-- Solver: MATLAB k-Wave 1-D, `kspaceFirstOrder1D`.
-- Medium: `c=3100 m/s`, `rho=2200 kg/m^3`, domain `256 mm`, baseline `dx=0.5 mm`, `PML=20` grid points.
-- Source: 18-cycle Gaussian toneburst, source at grid index 8.
-- Sensors: 26, 46, 66, 86, 106, and 126 mm from the source.
-- Frequencies: 0.2, 0.3, 0.4, 0.5, 0.6, 0.8, and 1.0 MHz.
-- Exponents added in this run: `y=0.98, 0.99, 1.01, 1.02`.
-- The coefficient is rescaled at `f0=0.5 MHz` for every exponent. The reported observable is the linear-fit attenuation from `ln(p_max)` versus distance.
+- **Solver:** MATLAB R2026a, k-Wave 1.4.1 (`kspaceFirstOrder1D`, `'DataCast', 'double'`).
+- **Medium:** `c = 3100 m/s`, `rho = 2200 kg/m^3`, domain `256 mm` (`Nx = 512`, `dx = 0.5 mm`), `PML = 20` grid points.
+- **Source & Duration:** 18-cycle toneburst placed strictly in the physical interior at grid index **35** (15 cells inside the physical domain, outside the 20-cell PML), simulated for **180 µs** so even dispersively slowed waves (`cp ≈ 1767 m/s` at `y = 0.98`) completely clear the farthest sensor.
+- **Sensors:** 6 attenuation probes at `26, 46, 66, 86, 106, 126 mm` from the source, plus an adjacent `+1 dx` (`0.5 mm`) probe for unaliased phase-speed extraction. Recorded fields: `{'p', 'p_max', 'p_min'}` (`max(|p_max|, |p_min|)`).
+- **Frequencies:** `0.2, 0.3, 0.4, 0.5, 0.6, 0.8, 1.0 MHz`.
 
-Existing saved curves for `y=0.9, 1.0, 1.05, 1.1` use the same frequency grid and configuration. Exact `y=1` uses `alpha_mode='no_dispersion'`; the near-y=1 cases use the default dispersive mode.
+## Completed Control Checks
 
-## Required controls before interpretation
+1. **Timestep refinement (`dt`, `dt/2`, `dt/4`) at `y = 0.98` and `y = 0.99`** (`src/matlab/run_controls.m` -> `results/controls_y098.json`):
+   - `y = 0.98` remains stable (`+190.45%`, `+190.18%`, `+190.15%`, `R² = 1.0000`) and matches spectral FFT estimates (`+171–173%`).
+   - `y = 0.99` unconditionally diverges across all timesteps (`max|p| ~ 10^301 Pa`, negative-going elliptic blow-up because effective stiffness $M(k_0) = -0.3505 < 0$).
+2. **Grid refinement (`dx = 0.5, 0.25, 0.125 mm`) at `y = 1.05`** (`results/grid_resolution_check.json`):
+   - Errors remain `-22.44%`, `-22.36%`, `-22.27%`, matching the Treeby & Cox (2014) analytical prediction (`-21.65%`).
+3. **Coefficient scaling (`0.5x, 1x, 2x`) at `y = 1.05` vs `y = 2.0`** (`results/tan_scaling_check.json`):
+   - Nonlinear scaling at `y = 1.05` (`-12.50%, -22.44%, -36.65%`) tracks the analytical dispersion denominator `1 - (y+1)*a0*c0*tan(pi*y/2)*w^(y-1)` while spatial decay stays strictly exponential (`R² >= 0.999988`).
+4. **Full-band `y = 1.0` with `no_dispersion`** (`results/y1_no_dispersion_fullband.json`):
+   - Error stays within `-0.16%` to `-1.59%` across `0.2–1.0 MHz` with unshifted `cp = 3100–3105 m/s`.
+5. **Audit of k-Wave built-in `fitPowerLawParams`** (`results/fit_power_law_params_audit.json`):
+   - Recovers target attenuation amplitude near `y = 1` (`-0.78%` to `-1.41%` for `y_desired in [1.00, 1.10]`), but introduces `+6.5%` to `+103.7%` superluminal phase-speed distortion (`cp = 3303–6316 m/s`), and still diverges for `y_desired = 0.99`.
 
-1. Repeat `y=0.98, 0.99, 1.01, 1.02` at `CFL=0.05` and `CFL=0.025`; the baseline currently emits a time-step warning for some near-y=1 cases.
-2. Repeat at `dx=0.25 mm` with the time step reduced consistently.
-3. Save raw sensor time series and compare peak-pressure, gated FFT, and cross-spectral attenuation estimates.
-4. Add matched `alpha_coeff=0` runs to remove source/grid/PML transfer effects.
-5. Keep `y=1` as a MATLAB `no_dispersion` reference and test CUDA behavior separately; do not infer GPU portability from the CPU result.
-
-The source lies inside the internal PML. At 0.2 MHz the 18-cycle burst lasts approximately 90 microseconds, matching the requested record duration, so distant sensors cannot record its complete tail. Move the source into the physical interior and lengthen the record in controlled reruns.
-
-The current matrix is suitable for locating frequency dependence. It is not by itself a proof of intrinsic material attenuation or a universal safe distance from `y=1`. Errors use the linear literature target; away from the fixed matching frequency of 0.5 MHz they include the expected power-law mismatch `(f/f0)^(y-1)-1`. Values below -100% correspond to negative fitted attenuation, not negative material absorption.
-
-Reproduce with `run_near_y_frequency_scans` after adding `src/matlab` to the MATLAB path, then run `python src/plot_near_y1_frequency_scan.py`.
+Reproduce the entire 1-D suite in MATLAB via `run_all_benchmarks` (or `python src/run_experiments.py`), or redraw all figures without MATLAB via `python src/run_experiments.py --plot-only` and `python src/plot_near_y1_frequency_scan.py`.

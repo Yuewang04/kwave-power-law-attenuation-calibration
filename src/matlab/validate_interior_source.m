@@ -13,7 +13,8 @@ if nargin < 1
 end
 
 f0 = 0.5;
-alpha_lit = 21.5 * 8.686 / 100; % dB/(cm MHz)
+np2db = 20 * log10(exp(1));
+alpha_lit = 21.5 * np2db / 100; % dB/(cm MHz)
 target_f0 = alpha_lit * f0;
 
 fprintf('=== Standard Interior-Source k-Wave Validation ===\n');
@@ -62,7 +63,7 @@ end
 function r = run_single_interior(f_MHz, coeff, y, mode_override)
 Nx = 512; dx = 0.5e-3; c = 3100; rho = 2200; f = f_MHz * 1e6;
 kgrid = kWaveGrid(Nx, dx);
-kgrid.makeTime(c, [], 150e-6);
+kgrid.makeTime(c, [], 180e-6);
 
 medium.sound_speed = c;
 medium.density = rho;
@@ -94,6 +95,6 @@ x = (idx - source_idx) * dx;
 good = amp > 0;
 fit = polyfit(x(good), log(amp(good)), 1);
 slope = fit(1);
-attenuation_dB_cm = (-slope) * 8.686 / 100;
+attenuation_dB_cm = (-slope) * (20 * log10(exp(1))) / 100;
 r = struct('attenuation_dB_cm', attenuation_dB_cm);
 end

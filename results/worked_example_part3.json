@@ -1,0 +1,74 @@
+{
+  "sound_speed_m_s": 2800,
+  "density_kg_m3": 1900,
+  "f0_MHz": 0.5,
+  "target_dB_cm": 0.93373313609199149,
+  "rows": [
+    {
+      "label": "Default dispersive, uncorrected (y=1.1)",
+      "alpha_coeff": 1.867466272183983,
+      "alpha_power": 1.1,
+      "alpha_mode": "default_dispersive",
+      "attenuation_dB_cm": 0.768684131856709,
+      "analytical_pde_dB_cm": 0.77888433613057162,
+      "relative_error_percent": -17.6762500821243,
+      "measured_phase_speed_m_s": 2954.9041261654797,
+      "fit_R2": 0.99999427906065252
+    },
+    {
+      "label": "Default dispersive, f0-matched (y=1.1)",
+      "alpha_coeff": 2.001500792708371,
+      "alpha_power": 1.1,
+      "alpha_mode": "default_dispersive",
+      "attenuation_dB_cm": 0.81671053060697207,
+      "analytical_pde_dB_cm": 0.82848636761467631,
+      "relative_error_percent": -12.532767764331579,
+      "measured_phase_speed_m_s": 2965.4308914733433,
+      "fit_R2": 0.9999883542361756
+    },
+    {
+      "label": "no_dispersion, uncorrected (y=1.1)",
+      "alpha_coeff": 1.867466272183983,
+      "alpha_power": 1.1,
+      "alpha_mode": "no_dispersion",
+      "attenuation_dB_cm": 0.86654466925795237,
+      "analytical_pde_dB_cm": 0.87120382126495577,
+      "relative_error_percent": -7.1956819606131779,
+      "measured_phase_speed_m_s": 2802.2764162400081,
+      "fit_R2": 0.99999836888711557
+    },
+    {
+      "label": "no_dispersion, f0-matched (y=1.1)",
+      "alpha_coeff": 2.001500792708371,
+      "alpha_power": 1.1,
+      "alpha_mode": "no_dispersion",
+      "attenuation_dB_cm": 0.92830233260882933,
+      "analytical_pde_dB_cm": 0.93373313609199138,
+      "relative_error_percent": -0.581622657828341,
+      "measured_phase_speed_m_s": 2802.4518766998071,
+      "fit_R2": 0.99999873914837323
+    },
+    {
+      "label": "no_dispersion, exact linear (y=1.0)",
+      "alpha_coeff": 1.867466272183983,
+      "alpha_power": 1,
+      "alpha_mode": "no_dispersion",
+      "attenuation_dB_cm": 0.9287812228855914,
+      "analytical_pde_dB_cm": 0.93373313609199149,
+      "relative_error_percent": -0.53033495492359084,
+      "measured_phase_speed_m_s": 2802.4728396057344,
+      "fit_R2": 0.99999888192675923
+    },
+    {
+      "label": "Default dispersive + fitPowerLawParams (from y=1.1)",
+      "alpha_coeff": 2.27673409757707,
+      "alpha_power": 1.1129796493383939,
+      "alpha_mode": "default_dispersive",
+      "attenuation_dB_cm": 0.92080368905381249,
+      "analytical_pde_dB_cm": 0.93379795509332353,
+      "relative_error_percent": -1.3847047446868361,
+      "measured_phase_speed_m_s": 2964.9290187156384,
+      "fit_R2": 0.99999236980715434
+    }
+  ]
+}

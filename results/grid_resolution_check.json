@@ -1,29 +1,43 @@
 {
   "y": 1.05,
+  "f0_MHz": 0.5,
+  "target_dB_cm": 0.93373313609199149,
   "cases": [
     {
       "grid_factor": 1,
       "Nx": 512,
       "dx_mm": 0.5,
-      "measured_dB_cm": 0.7271584338888049,
-      "relative_error_percent": -22.124516448408837,
-      "fit_R2": 0.9999924472408759
+      "source_idx": 35,
+      "pml_size": 20,
+      "measured_dB_cm": 0.72421086619215191,
+      "analytical_pde_dB_cm": 0.73159045341140327,
+      "relative_error_percent": -22.439202573099795,
+      "analytical_pde_error_percent": -21.648871060378976,
+      "fit_R2": 0.99998848718886824
     },
     {
       "grid_factor": 2,
       "Nx": 1024,
       "dx_mm": 0.25,
-      "measured_dB_cm": 0.7296740237876567,
-      "relative_error_percent": -21.855107787708988,
-      "fit_R2": 0.9999978641644308
+      "source_idx": 70,
+      "pml_size": 40,
+      "measured_dB_cm": 0.72496003891832106,
+      "analytical_pde_dB_cm": 0.73159045341140327,
+      "relative_error_percent": -22.358968435827482,
+      "analytical_pde_error_percent": -21.648871060378976,
+      "fit_R2": 0.99999893441763676
     },
     {
       "grid_factor": 4,
       "Nx": 2048,
       "dx_mm": 0.125,
-      "measured_dB_cm": 0.7309219774039891,
-      "relative_error_percent": -21.721457421031527,
-      "fit_R2": 0.9999953121656787
+      "source_idx": 140,
+      "pml_size": 80,
+      "measured_dB_cm": 0.72578367415289791,
+      "analytical_pde_dB_cm": 0.73159045341140327,
+      "relative_error_percent": -22.270759588701839,
+      "analytical_pde_error_percent": -21.648871060378976,
+      "fit_R2": 0.99999814713627411
     }
   ]
 }

@@ -3,15 +3,22 @@ message: "If you use this software or its results, please cite it using the meta
 type: software
 title: "kwave-power-law-attenuation-calibration"
 abstract: >-
-  Reproducible numerical audit of power-law acoustic attenuation in k-Wave
-  simulations (under MATLAB and CUDA), focusing on two independent sources of
-  error: literature parameter transfer and the numerical dispersion singularity
-  near y=1. Matching literature linear coefficients to k-Wave's quadratic model
-  at 0.5 MHz changes calibration error from -50.13% to -0.97%. Operating near
-  y=1 with default dispersion silently induces a -56.8% to -59.4% multiplicative
-  attenuation deficit across 0.2-1.0 MHz (R^2 >= 0.999), matching a +57% excess
-  in 3-D peak pressure. Approaching y=0.99 leads to 1-D numerical collapse and
-  3-D field divergence to order 1e30 Pa across both MATLAB and CUDA backends.
+  Reproducible numerical and analytical audit of power-law acoustic attenuation
+  in k-Wave (MATLAB and CUDA), reconciling near-y=1 anomalies through exact
+  fractional-Laplacian PDE theory under standard interior-source 1-D benchmarks
+  (180 us, both p_max and p_min recorded) and 3-D controls. Parameter transfer
+  from linear literature attenuation at 0.5 MHz reduces y=2 error from -50.24%
+  to -1.14%. Near y=1, default dispersion follows the exact Treeby-Cox
+  denominator 1 - (y+1)*a0*c0*tan(pi*y/2)*w^(y-1): y=1.01 yields a -57.37%
+  attenuation deficit (-57.58% analytical) and +54.8% superluminal phase-speed
+  shift (cp=4798 vs 3100 m/s), while y=0.98 yields +190.45% attenuation (+201.51%
+  analytical, cp=1819 m/s). At y=0.99, effective stiffness M(k0)=-0.3505 < 0
+  renders the wave equation Hadamard-elliptic, causing unconditional blow-up
+  in both 1-D (-9.4e301 Pa) and 3-D (~1e30 Pa) across all timesteps. k-Wave's
+  fitPowerLawParams restores amplitude near y=1 (-0.8% to -1.4%) but retains
+  +55% to +104% phase-speed distortion; only y=2 (or y=1 with no_dispersion
+  when phase dispersion is unneeded and backend support is verified) avoids
+  both pitfalls.
 authors:
   - family-names: Wang
     given-names: Yue
@@ -20,7 +27,7 @@ authors:
 repository-code: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
 url: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
 license: MIT
-version: "1.0.0"
+version: "1.1.0"
 doi: "10.5281/zenodo.23804834"
 identifiers:
   - type: doi
@@ -29,16 +36,16 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.23804833"
     description: "The concept DOI representing all versions"
-date-released: "2026-10-30"
+date-released: "2026-11-25"
 keywords:
   - k-Wave
   - transcranial ultrasound
   - focused ultrasound
   - acoustic attenuation
   - power-law absorption
-  - frequency-dependent attenuation
+  - fractional Laplacian
+  - Hadamard instability
   - reproducibility
-  - numerical simulation
 references:
   - type: article
     title: "Benchmark problems for transcranial ultrasound simulation: Intercomparison of compressional wave models"
@@ -66,3 +73,17 @@ references:
     end: 2748
     year: 2010
     doi: "10.1121/1.3377056"
+  - type: article
+    title: "Modeling power law absorption and dispersion in viscoelastic solids using a split-field and the fractional Laplacian"
+    authors:
+      - family-names: Treeby
+        given-names: Bradley E.
+      - family-names: Cox
+        given-names: Benjamin T.
+    journal: "The Journal of the Acoustical Society of America"
+    volume: 136
+    issue: 4
+    start: 1490
+    end: 1500
+    year: 2014
+    doi: "10.1121/1.4894790"

@@ -1,1 +1,125 @@
-{"case":"homogeneous_1D_y0p98_corrected_default_dispersion","constants":{"f0_MHz":0.5,"alpha_lit_dB_cm_MHz":1.8674899999999999,"target_dB_cm_at_f0":0.93374499999999994,"alpha_coeff":1.8417797133143032,"alpha_power":0.98},"controls":[{"dt_factor":1,"dt_s":4.8387096774193546E-8,"Nt":1862,"attenuation_peak_dB_cm":2.2700247669983273,"relative_error_peak_percent":143.10971057390697,"R2_peak":0.96087209256476047,"attenuation_spectral_dB_cm":2.8955405246089954,"relative_error_spectral_percent":210.09970865803786,"R2_spectral":0.57970260503636761,"spectral_frequency_MHz":0.49946294307196565,"distances_m":[0.026000000000000002,0.046,0.066,0.086000000000000007,0.106,0.126]},{"dt_factor":2,"dt_s":2.4193548387096773E-8,"Nt":3724,"attenuation_peak_dB_cm":2.2757603355398195,"relative_error_peak_percent":143.72396484477233,"R2_peak":0.96144427870037674,"attenuation_spectral_dB_cm":2.6284193550190929,"relative_error_spectral_percent":181.49220129897273,"R2_spectral":0.66592784318209186,"spectral_frequency_MHz":0.49946294307196565,"distances_m":[0.026000000000000002,0.046,0.066,0.086000000000000007,0.106,0.126]},{"dt_factor":4,"dt_s":1.2096774193548386E-8,"Nt":7448,"attenuation_peak_dB_cm":2.2763358760382748,"relative_error_peak_percent":143.78560271147634,"R2_peak":0.96155228297978723,"attenuation_spectral_dB_cm":2.6275443762781019,"relative_error_spectral_percent":181.39849490793546,"R2_spectral":0.66631840601020675,"spectral_frequency_MHz":0.49946294307196565,"distances_m":[0.026000000000000002,0.046,0.066,0.086000000000000007,0.106,0.126]}]}
+{
+  "case": "homogeneous_1D_interior_source_timestep_and_estimator_controls",
+  "constants": {
+    "f0_MHz": 0.5,
+    "alpha_lit_dB_cm_MHz": 1.867466272183983,
+    "target_dB_cm_at_f0": 0.93373313609199149,
+    "alpha_coeff_y098": 1.8417563121661411,
+    "alpha_power": 0.98,
+    "source_idx_grid": 35,
+    "pml_size_grid": 20,
+    "t_end_s": 0.00018
+  },
+  "controls": [
+    {
+      "dt_factor": 1,
+      "dt_s": 4.8387096774193546E-8,
+      "Nt": 3722,
+      "field_status": "stable",
+      "max_abs_pressure_Pa": 0.25034643619450753,
+      "attenuation_peak_dB_cm": 2.7119971963183418,
+      "relative_error_peak_percent": 190.44671239461672,
+      "R2_peak": 0.99999681352374281,
+      "attenuation_spectral_dB_cm": 2.5449582460182238,
+      "relative_error_spectral_percent": 172.55734509645742,
+      "R2_spectral": 0.96648928583698368,
+      "spectral_frequency_MHz": 0.49973132724341751,
+      "measured_phase_speed_m_s": 1818.6656307669491,
+      "analytical_pde_attenuation_dB_cm": 2.8152701788536505,
+      "analytical_phase_speed_m_s": 1767.0448469401074,
+      "stiffness_M_k0": 0.32491649230984265,
+      "distances_m": [
+        0.026000000000000002,
+        0.046,
+        0.066,
+        0.086000000000000007,
+        0.106,
+        0.126
+      ]
+    },
+    {
+      "dt_factor": 2,
+      "dt_s": 2.4193548387096773E-8,
+      "Nt": 7444,
+      "field_status": "stable",
+      "max_abs_pressure_Pa": 0.2505521382762973,
+      "attenuation_peak_dB_cm": 2.7095496337443312,
+      "relative_error_peak_percent": 190.18458583196153,
+      "R2_peak": 0.99999631276313294,
+      "attenuation_spectral_dB_cm": 2.5332250601706603,
+      "relative_error_spectral_percent": 171.30075631385608,
+      "R2_spectral": 0.97073973918342438,
+      "spectral_frequency_MHz": 0.49973132724341751,
+      "measured_phase_speed_m_s": 1820.6541957764746,
+      "analytical_pde_attenuation_dB_cm": 2.8152701788536505,
+      "analytical_phase_speed_m_s": 1767.0448469401074,
+      "stiffness_M_k0": 0.32491649230984265,
+      "distances_m": [
+        0.026000000000000002,
+        0.046,
+        0.066,
+        0.086000000000000007,
+        0.106,
+        0.126
+      ]
+    },
+    {
+      "dt_factor": 4,
+      "dt_s": 1.2096774193548386E-8,
+      "Nt": 14888,
+      "field_status": "stable",
+      "max_abs_pressure_Pa": 0.25053116704268708,
+      "attenuation_peak_dB_cm": 2.7092653283524117,
+      "relative_error_peak_percent": 190.15413758278518,
+      "R2_peak": 0.99999620964985847,
+      "attenuation_spectral_dB_cm": 2.5330246268548096,
+      "relative_error_spectral_percent": 171.27929051082273,
+      "R2_spectral": 0.97084727026860251,
+      "spectral_frequency_MHz": 0.49973132724341751,
+      "measured_phase_speed_m_s": 1820.6945004813203,
+      "analytical_pde_attenuation_dB_cm": 2.8152701788536505,
+      "analytical_phase_speed_m_s": 1767.0448469401074,
+      "stiffness_M_k0": 0.32491649230984265,
+      "distances_m": [
+        0.026000000000000002,
+        0.046,
+        0.066,
+        0.086000000000000007,
+        0.106,
+        0.126
+      ]
+    }
+  ],
+  "controls_y099_hadamard_blowup": [
+    {
+      "dt_factor": 1,
+      "dt_s": 4.8387096774193546E-8,
+      "Nt": 3722,
+      "field_status": "diverged",
+      "max_abs_pressure_Pa": 9.440549949271696E+301,
+      "p_max_pos_first_sensor_Pa": 0.00010259576804541019,
+      "p_min_neg_first_sensor_Pa": -8.96270551876703E+301,
+      "stiffness_M_k0": -0.35050029279174111
+    },
+    {
+      "dt_factor": 2,
+      "dt_s": 2.4193548387096773E-8,
+      "Nt": 7444,
+      "field_status": "diverged",
+      "max_abs_pressure_Pa": 5.98637996551826E+301,
+      "p_max_pos_first_sensor_Pa": 9.0535612888715893E-5,
+      "p_min_neg_first_sensor_Pa": -5.59904008878862E+301,
+      "stiffness_M_k0": -0.35050029279174111
+    },
+    {
+      "dt_factor": 4,
+      "dt_s": 1.2096774193548386E-8,
+      "Nt": 14888,
+      "field_status": "diverged",
+      "max_abs_pressure_Pa": 6.146113242148953E+301,
+      "p_max_pos_first_sensor_Pa": 8.7827235635004779E-5,
+      "p_min_neg_first_sensor_Pa": -5.7303714267706814E+301,
+      "stiffness_M_k0": -0.35050029279174111
+    }
+  ]
+}
