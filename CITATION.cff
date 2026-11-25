@@ -28,8 +28,11 @@ repository-code: "https://github.com/Yuewang04/kwave-power-law-attenuation-calib
 url: "https://github.com/Yuewang04/kwave-power-law-attenuation-calibration"
 license: MIT
 version: "1.1.0"
-doi: "10.5281/zenodo.23804834"
+doi: "10.5281/zenodo.24521031"
 identifiers:
+  - type: doi
+    value: "10.5281/zenodo.24521031"
+    description: "The versioned DOI for v1.1.0"
   - type: doi
     value: "10.5281/zenodo.23804834"
     description: "The versioned DOI for v1.0.0"
